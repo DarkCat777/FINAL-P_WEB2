@@ -16,7 +16,7 @@ import model.entity.Role;
 @SuppressWarnings("serial")
 public class RoleControllerDelete extends HttpServlet {
 	@SuppressWarnings("unchecked")
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		if (ACL_Controller.isAvalible(req, resp)) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			Long idRole = Long.parseLong(req.getParameter("id"));

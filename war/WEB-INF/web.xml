@@ -333,7 +333,110 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>ProductAddComent</servlet-name>
 		<url-pattern>/product/addcoment</url-pattern>
 	</servlet-mapping>
+
 	
+	<!-- TICKETS -->	
+<!-- Tickets Controller Add 
+	 Dirección: /tickets/add-->
+	 <servlet>
+	 	<servlet-name>TicketControllerAdd</servlet-name>
+	 	<servlet-class>controller.ticket.TicketControllerAdd</servlet-class>
+	 </servlet>	
+	 <servlet-mapping>
+	 	<servlet-name>TicketControllerAdd</servlet-name>
+	 	<url-pattern>/tickets/add</url-pattern>
+	 </servlet-mapping>
+
+<!-- Tickets Controller Edit 
+	 Dirección: /tickets/edit-->	 
+	 <servlet>
+	 	<servlet-name>TicketControllerEdit</servlet-name>
+	 	<servlet-class>controller.ticket.TicketControllerEdit</servlet-class>
+	 </servlet>	
+	 <servlet-mapping>
+	 	<servlet-name>TicketControllerEdit</servlet-name>
+	 <url-pattern>/tickets/edit</url-pattern>
+	 </servlet-mapping>
+	 	
+<!-- Tickets Controller Index 
+	 Dirección: /tickets-->	 	
+	 <servlet>
+	 	<servlet-name>TicketControllerIndex</servlet-name>
+	 	<servlet-class>controller.ticket.TicketControllerIndex</servlet-class>
+	 </servlet>	
+	 <servlet-mapping>
+	 	<servlet-name>TicketControllerIndex</servlet-name>
+	 <url-pattern>/tickets</url-pattern>
+	 </servlet-mapping>
+	 
+<!-- Tickets Controller Delete 
+	 Direccion: /tickets/delete-->	 
+	 <servlet>
+	 	<servlet-name>TicketControllerDelete</servlet-name>
+	 	<servlet-class>controller.ticket.TicketControllerDelete</servlet-class>
+	 </servlet>	
+	 <servlet-mapping>
+	 	<servlet-name>TicketControllerDelete</servlet-name>
+	 <url-pattern>/tickets/delete</url-pattern>
+	 </servlet-mapping>	
+	 
+<!-- Tickets Controller View
+	 Dirección: /tickets/view-->
+	 <servlet>
+	 	<servlet-name>TicketControllerView</servlet-name>
+	 	<servlet-class>controller.ticket.TicketControllerView</servlet-class>
+	 </servlet>	 
+	 <servlet-mapping>
+	 	<servlet-name>TicketControllerView</servlet-name>
+	 	<url-pattern>/tickets/view</url-pattern>
+	 </servlet-mapping>
+	
+	<!-- CARRITO -->
+<!-- Carrito Controller Add 
+	 Dirección: /cart/add -->
+	 
+	<servlet>
+		<servlet-name>CartControllerAdd</servlet-name>
+		<servlet-class>controller.cart.CartControllerAdd</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CartControllerAdd</servlet-name>
+		<url-pattern>/cart/add</url-pattern>
+	</servlet-mapping>
+
+<!-- Carrtio Controller Delete
+	 Dirección: /cart/delete -->
+	 <servlet>
+	 	<servlet-name>CartControllerDelete</servlet-name>
+	 	<servlet-class>controller.cart.CartControllerDelete</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>CartControllerDelete</servlet-name>
+	 	<url-pattern>/cart/delete</url-pattern>
+	 </servlet-mapping>
+	 
+<!-- Carrito Controller Index
+	 Dirección: /cart -->
+	 <servlet>
+	 	<servlet-name>CartControllerIndex</servlet-name>
+	 	<servlet-class>controller.cart.CartControllerIndex</servlet-class>
+	 </servlet>	
+	 <servlet-mapping>
+	 	<servlet-name>CartControllerIndex</servlet-name>
+	 	<url-pattern>/cart</url-pattern>
+	 </servlet-mapping>
+
+<!-- Carrito Controller View 
+	 Dirección: /cart/view-->
+	 <servlet>
+	 	<servlet-name>CartControllerView</servlet-name>
+	 	<servlet-class>controller.cart.CartControllerView</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>CartControllerView</servlet-name>
+	 	<url-pattern>/cart/view</url-pattern>
+	 </servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

@@ -31,7 +31,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th>ID</th>
+					<th>Acciones</th>
 					<th>Nombre</th>
 					<th>Estado</th>
 					<th>Creado</th>
@@ -39,7 +39,11 @@
 			</thead>
 			<% for (Role r: roles){%>
 			<tr>
-				<td><a id="cambiaColor" href="/role/view?id=<%=r.getId()%>"><%=r.getId()%></a></td>
+				<td>
+					<a id="cambiaColor" href="/role/view?id=<%=r.getId()%>">Ver</a>
+					<a id="cambiaColor" href="/role/edit?id=<%=r.getId()%>">Editar</a>
+					<a id="cambiaColor" href="/role/delete?id=<%=r.getId()%>">Borrar</a>
+				</td>
 				<td><%=r.getName()%></td>
 				<td><%=r.isStatus() %></td>
 				<td><%=sdf.format(r.getMade()) %></td>

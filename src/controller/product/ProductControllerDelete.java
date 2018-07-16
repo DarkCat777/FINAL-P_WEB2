@@ -12,7 +12,7 @@ import model.entity.Product;
 
 @SuppressWarnings("serial")
 public class ProductControllerDelete extends HttpServlet {
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (ACL_Controller.isAvalible(req, resp)) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			Long id=Long.parseLong(req.getParameter("id"));

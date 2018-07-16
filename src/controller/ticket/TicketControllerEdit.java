@@ -18,10 +18,13 @@ public class TicketControllerEdit extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		if (ACL_Controller.isAvalible(req, resp)) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
+			Long id=Long.parseLong(req.getParameter("id"));
 			String query = "SELECT FROM " + Ticket.class.getName();
 			List<Ticket> tickets = (List<Ticket>) pm.newQuery(query).execute();
+			Ticket tick=pm.getObjectById(Ticket.class,id);
 			req.setAttribute("tickets", tickets);
-			req.getRequestDispatcher("/WEB-INF/Views/Ticket/edit.jsp");
+			req.setAttribute("ticket", tick);
+			req.getRequestDispatcher("/WEB-INF/Views/Ticket/edit.jsp").forward(req, resp);
 		}
 	}
 

@@ -31,7 +31,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
 		<table>
 			<thead>
 				<tr>
-					<th>ID</th>
+					<th>Acciones</th>
 					<th>Nombre</th>
 					<th>Estado</th>
 					<th>Creado</th>
@@ -39,7 +39,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
 			</thead>
 			<% for (Resource r: resources){%>
 			<tr>
-				<td><a id="cambiaColor" href="/resource/view?id=<%=r.getId()%>"><%=r.getId()%></a></td>
+				<td><a id="cambiaColor" href="/resource/view?id=<%=r.getId()%>">Ver</a>
+				<a id="cambiaColor" href="/resource/edit?id=<%=r.getId()%>">Editar</a>
+				<a id="cambiaColor" href="/resource/delete?id=<%=r.getId()%>">Borrar</a></td>
 				<td><%=r.getUrl()%></td>
 				<td><%=r.isStatus() %></td>
 				<td><%=sdf.format(r.getCreate()) %></td>

@@ -38,13 +38,12 @@ public class BillingControllerAdd extends HttpServlet {
 		}
 		String customer = req.getParameter("customer");
 		String address = req.getParameter("address");
-		boolean status = true;
 		String descriptionProduct = req.getParameter("descriptionproduct");
 		double unitPriceProduct = Double.parseDouble(req.getParameter("unitpriceproduct"));
 		double mountProduct = Double.parseDouble(req.getParameter("mount"));
 		// Falta pensar como hacerlo
 		try {
-			Billing billing = new Billing(customer, address, status, descriptionProduct, unitPriceProduct, mountProduct,
+			Billing billing = new Billing(customer, address, descriptionProduct, unitPriceProduct, mountProduct,
 					idUser);
 			pm.makePersistent(billing);
 			pm.close();

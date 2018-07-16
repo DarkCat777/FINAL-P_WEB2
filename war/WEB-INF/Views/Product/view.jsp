@@ -12,59 +12,22 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Montserrat"
 	rel="stylesheet">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-
+	<link rel="stylesheet" type="text/css" href="/css/fonts.css">
+	<title>Product <%=product.getName() %></title>
+	<link rel="stylesheet" type="text/css" href="/css/estilosIndex.css">
+	<style>
+		th{
+                background-color: rgb(80, 71, 207);
+                color: white;
+            }
+            tr{
+            color:white;
+            }
+	</style>
 </head>
-<style>
-* {
-	padding: 0px;
-	margin: 0px;
-}
-
-#header {
-	font-family: 'Montserrat', sans-serif;
-}
-
-ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: #333;
-}
-
-li {
-	float: left;
-}
-
-li a {
-	display: block;
-	color: white;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-}
-
-.nav>li {
-	float: left;
-}
-
-.nav li ul {
-	display: none;
-}
-
-.nav li:hover>ul {
-	display: block;
-}
-
-ul li a:hover, ul li a:active {
-	background-color: #05319c;
-}
-</style>
-
 <body>
 	<jsp:include page="../Menu/menu2.jsp" flush="true" />
+	<div class="contenedor-form">
 	<h2>
 		Producto
 		<%=product.getId()%></h2>
@@ -72,7 +35,7 @@ ul li a:hover, ul li a:active {
 	<div id="tabla">
 
 		<center>
-			<table>
+			<table style="width: 40%;">
 				<tr>
 					<th>ID de usuario</th>
 					<td><%=product.getId()%></td>
@@ -126,7 +89,7 @@ ul li a:hover, ul li a:active {
 		<a href="/product/edit?id=<%=product.getId()%>"><img
 			src="/edit.png" width="50" height="50" /> </a> <a href="/product"><img
 			src="/lista.png" width="50" height="50"> </a>
-		<form action="/product/delete" method="post">
+		<form action="/product/delete" method="get">
 			<input type="hidden" value="<%=product.getId()%>" name="id">
 			<input type="image" src="/delete.png" width="30" height="30" />
 	</center>
@@ -135,8 +98,10 @@ ul li a:hover, ul li a:active {
 		<center>
 			<h3>Comentarios:</h3>
 			<br>
+			<br>
 			<div>
 			<b>Añadir comentario: </b>
+			<br><br>
 			<form action="/product/addcoment" method="GET">
 			<input type="text" name="coment" placeholder="¿Que piensas del producto?">
 			<input type="hidden" value="<%=product.getId()%>" name="id">
@@ -161,6 +126,6 @@ ul li a:hover, ul li a:active {
 			</div>
 		</center>
 	</div>
-
+</div>
 </body>
 </html>

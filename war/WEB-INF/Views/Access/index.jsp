@@ -31,9 +31,7 @@
 <body>
 	<%if(true){%>
 		<jsp:include page="../Menu/menu2.jsp" flush="true"/>
-	<% }else { %>
-	<p>Perro</p>
-	<%} %>
+	<% }%>
 	<div class="contenedor-form">
 	<p>Lista de Access</p>
 		<% if (access.isEmpty()){ %>
@@ -42,7 +40,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th>ID</th>
+					<th>Acciones</th>
 					<th>Rol</th>
 					<th>Resource</th>
 					<th>Status</th>
@@ -51,7 +49,9 @@
 			</thead>
 			<% for (Access a: access){%>
 			<tr>
-				<td><a id="cambiaColor" href="/access/view?id=<%=a.getId()%>"><%=a.getId()%></a></td>
+				<td><a id="cambiaColor" href="/access/view?id=<%=a.getId()%>">Ver</a>
+				<a id="cambiaColor" href="/access/edit?id=<%=a.getId()%>">Editar</a>
+				<a id="cambiaColor" href="/access/delete?id=<%=a.getId()%>">Borrar</a></td>
 				
 				<!--  ROLES -->
 				<%if(roles.isEmpty()){ %>

@@ -18,9 +18,7 @@
 <body>
 	<%if(true){%>
 		<jsp:include page="../Menu/menu2.jsp" flush="true"/>
-	<% }else { %>
-	<p>Perro</p>
-	<%} %>
+	<% }%>
 	<div class="contenido">
 		<h2 id="id" name="<%=roles.getId() %>">Datos del Rol </h2>
 		<table class="vertical-table">
@@ -48,7 +46,7 @@
 					<td><a href="/role/edit?id=<%=roles.getId() %>"><img src="/img/edit.png"></a></td>
 					<th>
 						<div class="borrar">
-							<form action="/role/delete" method="post">
+							<form action="/role/delete" method="get">
 							<input type="hidden" value="<%=roles.getId()%>" name="id"> 
 							<input type="image" src="/img/elimina.png" heigth="50px">
 						</form>

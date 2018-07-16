@@ -12,7 +12,7 @@ import model.entity.Resource;
 
 @SuppressWarnings("serial")
 public class ResourceControllerDelete extends HttpServlet {
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		if (ACL_Controller.isAvalible(req, resp)) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			Long idResource = Long.parseLong(req.getParameter("id"));

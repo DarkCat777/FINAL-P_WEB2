@@ -1,6 +1,7 @@
 package model.entity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -15,28 +16,37 @@ import com.google.appengine.repackaged.org.joda.time.LocalDateTime;
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Billing {
 	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY) private Long id;
-	@Persistent private Date dateIn;
-	@Persistent private String customer;
-	@Persistent private String address;
-	@Persistent private boolean status;
-	@Persistent private Long idUser;
-	@Persistent private String descriptionProduct;
-	@Persistent private double unitPriceProduct;
-	@Persistent private double mountProduct;
-	@Persistent private double total=0;
-	
-	public Billing(String customer, String address, boolean status,
-		String descriptionProduct, double unitPriceProduct, double mountProduct,Long idUser) {
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Long id;
+	@Persistent
+	private Date dateIn;
+	@Persistent
+	private String customer;
+	@Persistent
+	private String address;
+	@Persistent
+	private Long idUser;
+	@Persistent
+	private ArrayList<Long> idProduct=new ArrayList<Long>();
+	@Persistent
+	private String descriptionProduct;
+	@Persistent
+	private double unitPriceProduct;
+	@Persistent
+	private double mountProduct;
+	@Persistent
+	private double total = 0;
+
+	public Billing(String customer, String address, String descriptionProduct, double unitPriceProduct,
+			double mountProduct, Long idUser) {
 		this.dateIn = LocalDateTime.now(DateTimeZone.forID("America/Lima")).toDate();
 		this.customer = customer;
 		this.address = address;
-		this.status = status;
 		this.descriptionProduct = descriptionProduct;
 		this.unitPriceProduct = unitPriceProduct;
 		this.mountProduct = mountProduct;
-		this.total=unitPriceProduct*mountProduct;
-		this.idUser=idUser;
+		this.total = unitPriceProduct * mountProduct;
+		this.idUser = idUser;
 	}
 
 	public Long getIdUser() {
@@ -46,7 +56,7 @@ public class Billing {
 	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -57,7 +67,7 @@ public class Billing {
 
 	public String getDateIn() {
 		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-        String dateIn = DATE_FORMAT.format(this.dateIn);
+		String dateIn = DATE_FORMAT.format(this.dateIn);
 		return dateIn;
 	}
 
@@ -79,14 +89,6 @@ public class Billing {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
 	}
 
 	public String getDescriptionProduct() {
@@ -116,9 +118,9 @@ public class Billing {
 	public double getTotal() {
 		return total;
 	}
+
 	public void setTotal() {
-		this.total=unitPriceProduct*mountProduct;
+		this.total = unitPriceProduct * mountProduct;
 	}
 
-	
 }

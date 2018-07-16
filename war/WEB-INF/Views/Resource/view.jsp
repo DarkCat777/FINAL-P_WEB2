@@ -48,7 +48,7 @@
 					<td><a href="/resource/edit?id=<%=resources.getId() %>"><img src="/img/edit.png"></a></td>
 					<th>
 						<div class="borrar">
-							<form action="/resource/delete" method="post">
+							<form action="/resource/delete" method="get">
 							<input type="hidden" value="<%=resources.getId()%>" name="id"> 
 							<input type="image" src="/img/elimina.png" heigth="50px">
 						</form>

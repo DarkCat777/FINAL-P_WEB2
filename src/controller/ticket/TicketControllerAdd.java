@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.jdo.PersistenceManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 
 @SuppressWarnings("serial")
@@ -24,7 +25,8 @@ public class TicketControllerAdd extends HttpServlet {
 			String query = "SELECT FROM " + Ticket.class.getName();
 			List<Ticket> tickets = (List<Ticket>) pm.newQuery(query).execute();
 			req.setAttribute("tickets", tickets);
-			req.getRequestDispatcher("/WEB-INF/Views/Ticket/add.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/Views/Ticket/add.jsp");
+			dispatcher.forward(req, resp);
 		}
 	}
 
@@ -39,6 +41,7 @@ public class TicketControllerAdd extends HttpServlet {
 		} catch (ParseException e) {
 			resp.getWriter().println(e.getMessage());
 		}
+		
 		//Status del Ticket cambiar a Option jsp
 		boolean status=Boolean.parseBoolean(req.getParameter("status"));//Respecto a si esta pagado o no
 		String nameCustomer=req.getParameter("namecustomer");//Obtenerlo de Usuarios
@@ -50,6 +53,7 @@ public class TicketControllerAdd extends HttpServlet {
 		double mountProduct=Double.parseDouble(req.getParameter("mountproduct"));
 		double IGV=Double.parseDouble(req.getParameter("IGV"));
 		double total=unitPrice*mountProduct*(1+IGV);
+		
 		try {
 			Ticket ticket=new Ticket(create, nameCustomer, address, status, customerDni, idProduct, descriptionProduct, unitPrice, mountProduct, total, IGV);
 			pm.makePersistent(ticket);
@@ -57,6 +61,7 @@ public class TicketControllerAdd extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
+		
 			resp.sendRedirect("/tickets");
 		}
 	}

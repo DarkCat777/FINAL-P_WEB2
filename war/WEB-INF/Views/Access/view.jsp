@@ -28,9 +28,7 @@
 <body>
 	<%if(true){%>
 		<jsp:include page="../Menu/menu2.jsp" flush="true"/>
-	<% }else { %>
-	<p>Perro</p>
-	<%} %>
+	<% }%>
 	<div class="contenido">
 		<h2 id="id" name="<%=access.getId() %>">Datos del Access </h2>
 		<table class="vertical-table">

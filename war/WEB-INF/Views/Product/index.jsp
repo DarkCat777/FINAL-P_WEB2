@@ -28,7 +28,7 @@
 				<%
 					if (products.isEmpty()) {
 				%>
-				<p>No se encuentran productos.Añada Productos</p>
+				<p>No se encuentran productos.AÃ±ada Productos</p>
 				<%
 					} else {
 				%>
@@ -45,13 +45,14 @@
 							<th>Estado</th>
 							<th>Stock</th>
 							<th>Creado</th>
+							<th>Añadir carrito</th>
 						</tr>
 				</thead>
 				<%
 					for (Product p : products) {
 				%>
 				<tr>
-							<td><a href="/product/view?id=<%=p.getId()%>"> <%=p.getId()%></a></td>
+							<td><a href="/product/view?id=<%=p.getId()%>"> Ver</a> <a href="/product/edit?id=<%=p.getId()%>"> Editar</a> <a href="/product/delete?id=<%=p.getId()%>"> Delete</a></td>
 							<td><%=p.getName()%></td>
 							<td><%=p.getMarca()%></td>
 							<td><%=p.getModel()%></td>
@@ -61,7 +62,12 @@
 							<td><%=p.isStatus()%></td>
 							<td><%=p.getStock()%></td>
 							<td><%=p.getMade()%></td>
-
+							<td>
+								<form action="/cart/add">
+									<input type="hidden" name="idproduct" value="<%=p.getId()%>"/>
+									<input type="submit" value="Añadir Carrito">
+								</form>
+							</td>
 						</tr>
 						<%
 							}

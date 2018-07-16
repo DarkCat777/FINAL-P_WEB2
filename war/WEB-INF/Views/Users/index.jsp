@@ -30,12 +30,9 @@
 		<table>
 			<thead>
 				<tr>
-					<th>ID</th>
+					<th>Aciones</th>
 					<th>Nombre</th>
 					<th>Rol</th>
-					<th>Ciudad</th>
-					<th>Fecha de Nacimiento</th>
-					<th>Celular</th>
 					<th>Correo electrónico</th>
 					<th>Género</th>
 					<th>Estado</th>
@@ -44,7 +41,11 @@
 			</thead>
 			<% for (Users us: users){%>
 			<tr>
-				<td><a id="cambiaColor" href="/user/view?id=<%=us.getId()%>"><%=us.getId()%></a></td>
+				<td>
+					<a id="cambiaColor" href="/user/view?id=<%=us.getId()%>">Ver</a>
+					<a id="cambiaColor" href="/user/edit?id=<%=us.getId()%>">Editar</a>
+					<a id="cambiaColor" href="/user/delete?id=<%=us.getId()%>">Borrar</a>
+				</td>
 				<td><%=us.getName()%></td>
 				<%if(roles.isEmpty()){ %>
 					<td>Asigne un Rol</td>
@@ -61,9 +62,6 @@
 						<%= almacenaRol="" %>
 					<%} %>		
 				<%} %>
-				<td><%=us.getCity()%></td>
-				<td><%=sdf.format(us.getBirth())%></td>
-				<td><%=us.getCellphone()%></td>
 				<td><%=us.getEmail()%></td>
 				<td>
 					<%if(us.isGender()){ %>

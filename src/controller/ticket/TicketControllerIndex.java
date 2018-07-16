@@ -19,7 +19,7 @@ public class TicketControllerIndex extends HttpServlet {
 			String query = "select from " + Ticket.class.getName();
 			List<Ticket> tickets = (List<Ticket>) pm.newQuery(query).execute();
 			req.setAttribute("tickets", tickets);
-			req.getRequestDispatcher("/WEB-INF/Views/Tickets/index.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/Views/Ticket/index.jsp").forward(req, resp);
 		}
 	}
 }
