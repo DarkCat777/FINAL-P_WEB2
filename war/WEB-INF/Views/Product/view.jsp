@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="model.entity.Product"%>
+<%@page import="java.util.*"%>
 <%
 	Product product = (Product) request.getAttribute("product");
 %>
@@ -16,12 +17,13 @@
 
 </head>
 <style>
-*{
-padding: 0px;
-margin: 0px;
+* {
+	padding: 0px;
+	margin: 0px;
 }
-#header{
-font-family: 'Montserrat', sans-serif;
+
+#header {
+	font-family: 'Montserrat', sans-serif;
 }
 
 ul {
@@ -43,27 +45,29 @@ li a {
 	padding: 14px 16px;
 	text-decoration: none;
 }
-.nav > li{
-float: left;
-}
-.nav li ul{
-display: none;
+
+.nav>li {
+	float: left;
 }
 
-.nav li:hover > ul{
- display: block;
+.nav li ul {
+	display: none;
 }
+
+.nav li:hover>ul {
+	display: block;
+}
+
 ul li a:hover, ul li a:active {
 	background-color: #05319c;
 }
-
 </style>
 
 <body>
-<jsp:include page="../Menu/menu2.jsp" flush="true"/>
-<h2>
-	Producto
-	<%=product.getId()%></h2>
+	<jsp:include page="../Menu/menu2.jsp" flush="true" />
+	<h2>
+		Producto
+		<%=product.getId()%></h2>
 	<a id="add" href="/product" title="Añadir Producto"></a>
 	<div id="tabla">
 
@@ -99,7 +103,7 @@ ul li a:hover, ul li a:active {
 					<td><%=product.getDescuento()%></td>
 				</tr>
 				<tr>
-				
+
 					<th>Stock</th>
 					<td><%=product.getStock()%></td>
 				</tr>
@@ -108,7 +112,7 @@ ul li a:hover, ul li a:active {
 					<th>Estado</th>
 					<td><%=product.isStatus()%></td>
 				</tr>
-				
+
 				<tr>
 					<th>Creado</th>
 					<td><%=product.getMade()%></td>
@@ -118,15 +122,45 @@ ul li a:hover, ul li a:active {
 		</center>
 	</div>
 
+	<center>
+		<a href="/product/edit?id=<%=product.getId()%>"><img
+			src="/edit.png" width="50" height="50" /> </a> <a href="/product"><img
+			src="/lista.png" width="50" height="50"> </a>
+		<form action="/product/delete" method="post">
+			<input type="hidden" value="<%=product.getId()%>" name="id">
+			<input type="image" src="/delete.png" width="30" height="30" />
+	</center>
+	</form>
+	<div class="contenedor-form">
 		<center>
-			<a href="/product/edit?id=<%=product.getId()%>"><img
-				src="/edit.png" width="50" height="50" /> </a> <a href="/product"><img
-				src="/lista.png" width="50" height="50"> </a>
-			<form action="/product/delete" method="post">
-				<input type="hidden" value="<%=product.getId()%>" name="id">
-				<input type="image" src="/delete.png" width="30" height="30" />
+			<h3>Comentarios:</h3>
+			<br>
+			<div>
+			<b>Añadir comentario: </b>
+			<form action="/product/addcoment" method="GET">
+			<input type="text" name="coment" placeholder="¿Que piensas del producto?">
+			<input type="hidden" value="<%=product.getId()%>" name="id">
+			<input type="submit" value="Publicar comentario">
+			</form>
+			</div>
+			<div>
+			<%if(product.getComents().isEmpty()) {%>
+			<p>No hay comentarios.</p>
+			<% }else{%>
+				<table>
+				<%for(int i=0;i<product.getComents().size();i++){%>
+					<tr>
+						<td><b>Anonimo: --></b>
+						</td>
+						<td><%=product.getComents().get(i) %>
+						</td>
+					</tr>
+					<% }%>
+				</table>
+				<%}%>
+			</div>
 		</center>
-		</form>
-	
+	</div>
+
 </body>
 </html>

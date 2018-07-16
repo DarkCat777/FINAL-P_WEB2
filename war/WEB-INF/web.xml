@@ -325,6 +325,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>ProductControllerEdit</servlet-name>
 		<url-pattern>/product/edit</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>ProductAddComent</servlet-name>
+		<servlet-class>controller.product.ProductAddComent</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProductAddComent</servlet-name>
+		<url-pattern>/product/addcoment</url-pattern>
+	</servlet-mapping>
 	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

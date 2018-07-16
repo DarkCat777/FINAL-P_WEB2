@@ -39,7 +39,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
 			</thead>
 			<% for (Resource r: resources){%>
 			<tr>
-				<td><a id="cambiaColor" href="/resources/view?id=<%=r.getId()%>"><%=r.getId()%></a></td>
+				<td><a id="cambiaColor" href="/resource/view?id=<%=r.getId()%>"><%=r.getId()%></a></td>
 				<td><%=r.getUrl()%></td>
 				<td><%=r.isStatus() %></td>
 				<td><%=sdf.format(r.getCreate()) %></td>

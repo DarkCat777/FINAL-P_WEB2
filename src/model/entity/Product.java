@@ -1,5 +1,6 @@
 package model.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -34,6 +35,8 @@ public class Product {
 	private int stock;
 	@Persistent
 	private int descuento;
+	@Persistent
+	private ArrayList<String> coments=new ArrayList<String>();
 
 	public Product(String name, String marca, String model, String description, int descuento, boolean status,
 			double price, int stock) {
@@ -48,6 +51,13 @@ public class Product {
 		LocalDateTime ldt = LocalDateTime.now(DateTimeZone.forID("America/Lima"));
 		made = ldt.toDate();
 
+	}
+	
+	public void addComent(String coment){
+		this.coments.add(coment);
+	}
+	public ArrayList<String> getComents(){
+		return this.coments;
 	}
 
 	public int getDescuento() {
