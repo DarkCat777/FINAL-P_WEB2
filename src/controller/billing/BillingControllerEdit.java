@@ -36,8 +36,6 @@ public class BillingControllerEdit extends HttpServlet {
 		billing.setMountProduct(Double.parseDouble(req.getParameter("mountProduct")));
 		billing.setTotal();
 		pm.close();
-		resp.sendRedirect("/billing/view?id=" + req.getParameter("id"));// Enviar
-																		// al
-																		// ViewController
+		resp.sendRedirect("/billing/view?id=" + req.getParameter("id"));// Enviar														// ViewController
 	}
 }

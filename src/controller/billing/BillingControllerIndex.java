@@ -31,7 +31,7 @@ public class BillingControllerIndex extends HttpServlet {
 				//ERROR NO EXISTE UN USUARIO O NO ESTA ACTIVO
 				String codigoError="ERROR NO ES UN USUARIO REGRISTRADO O NO ESTA ACTIVO";
 				req.setAttribute("error", codigoError);
-				req.getRequestDispatcher("/WEB-INF/View/Users/error.jsp").forward(req, resp);
+				req.getRequestDispatcher("/WEB-INF/Views/Users/error.jsp").forward(req, resp);
 			}else{
 				String query2="SELECT FROM "+Resource.class.getName()+" WHERE url=='"+req.getServletPath()+"' && status==true";
 				List<Resource> resource=(List<Resource>)pm.newQuery(query2).execute();
@@ -39,7 +39,7 @@ public class BillingControllerIndex extends HttpServlet {
 					//ERROR NO EXISTE UN RECURSO O NO ESTA ACTIVO
 					String codigoError="ERROR NO EXISTE UN RECURSO O NO ESTA ACTIVO";
 					req.setAttribute("error", codigoError);
-					req.getRequestDispatcher("/WEB-INF/View/Users/error.jsp").forward(req, resp);
+					req.getRequestDispatcher("/WEB-INF/Views/Users/error.jsp").forward(req, resp);
 				}else{
 					String query3="SELECT FROM "+Access.class.getName()+" WHERE idRole=="+users.get(0).getIdRol()+" && idUrl=="+resource.get(0).getId()+" && status==true";
 					List<Access> access=(List<Access>)pm.newQuery(query3).execute();
@@ -47,7 +47,7 @@ public class BillingControllerIndex extends HttpServlet {
 						//ERROR NO EXISTE UN ACCESO O NO ESTA ACTIVO
 						String codigoError="ERROR NO EXISTE UN ACCESO O NO ESTA ACTIVO";
 						req.setAttribute("error", codigoError);
-						req.getRequestDispatcher("/WEB-INF/View/Users/error.jsp").forward(req, resp);
+						req.getRequestDispatcher("/WEB-INF/Views/Users/error.jsp").forward(req, resp);
 					}else{
 						//Esto utlimo es el servlet Original
 						String query4 = "SELECT FROM "+ Billing.class.getName()+" WHERE idUser=="+users.get(0).getId();
