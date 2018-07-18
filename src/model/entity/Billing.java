@@ -1,9 +1,9 @@
 package model.entity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.jdo.PersistenceManager;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -13,44 +13,103 @@ import javax.jdo.annotations.PrimaryKey;
 import com.google.appengine.repackaged.org.joda.time.DateTimeZone;
 import com.google.appengine.repackaged.org.joda.time.LocalDateTime;
 
+import controller.PMF;
+
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Billing {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Long id;
 	@Persistent
-	private Date dateIn;
-	@Persistent
-	private String customer;
-	@Persistent
-	private String address;
+	private Date dateCreate;
 	@Persistent
 	private Long idUser;
 	@Persistent
-	private ArrayList<Long> idProduct=new ArrayList<Long>();
+	private ArrayList<Long> idProducts = new ArrayList<Long>();
 	@Persistent
-	private String descriptionProduct;
-	@Persistent
-	private double unitPriceProduct;
-	@Persistent
-	private double mountProduct;
+	private ArrayList<Integer> cantidad = new ArrayList<Integer>();
 	@Persistent
 	private double total = 0;
+	@Persistent
+	private double igv = 0.18;
 
-	public Billing(String customer, String address, String descriptionProduct, double unitPriceProduct,
-			double mountProduct, Long idUser) {
-		this.dateIn = LocalDateTime.now(DateTimeZone.forID("America/Lima")).toDate();
-		this.customer = customer;
-		this.address = address;
-		this.descriptionProduct = descriptionProduct;
-		this.unitPriceProduct = unitPriceProduct;
-		this.mountProduct = mountProduct;
-		this.total = unitPriceProduct * mountProduct;
+	public Billing(Long idUser) {
+		this.dateCreate = LocalDateTime.now(DateTimeZone.forID("America/Lima")).toDate();
+		this.total = 0;
 		this.idUser = idUser;
+	}
+
+	public void addProduct(Long idProduct, int cantidad) {
+		boolean seAñadio = false;
+		for (int i = 0; i < this.idProducts.size(); i++) {
+			if (idProducts.get(i).equals(idProduct)) {
+				seAñadio = true;
+				this.cantidad.set(i, cantidad);
+			}
+		}
+		if (!seAñadio) {
+			this.idProducts.add(idProduct);
+			this.cantidad.add(cantidad);
+		}
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Product product = pm.getObjectById(Product.class, idProduct);
+		this.total += product.getPrice() * cantidad;
+		pm.close();
+	}
+
+	public void removeProduct(Long idProduct) {
+		int cantidadAux=0;
+		for(int i=0;i<idProducts.size();i++){
+			if(idProducts.get(i).equals(idProduct)){
+				idProducts.remove(i);
+				cantidadAux=this.cantidad.remove(i);
+			}
+		}
+
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Product product = pm.getObjectById(Product.class, idProduct);
+		this.total -= product.getPrice() * cantidadAux;
+		pm.close();
 	}
 
 	public Long getIdUser() {
 		return idUser;
+	}
+
+	public Date getDateCreate() {
+		return dateCreate;
+	}
+
+	public void setDateCreate(Date dateCreate) {
+		this.dateCreate = dateCreate;
+	}
+
+	public ArrayList<Long> getIdProducts() {
+		return idProducts;
+	}
+
+	public void setIdProducts(ArrayList<Long> idProducts) {
+		this.idProducts = idProducts;
+	}
+
+	public ArrayList<Integer> getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(ArrayList<Integer> cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public double getIgv() {
+		return igv;
+	}
+
+	public void setIgv(double igv) {
+		this.igv = igv;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	public void setIdUser(Long idUser) {
@@ -65,62 +124,8 @@ public class Billing {
 		this.id = id;
 	}
 
-	public String getDateIn() {
-		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-		String dateIn = DATE_FORMAT.format(this.dateIn);
-		return dateIn;
-	}
-
-	public void setDateIn() {
-		this.dateIn = LocalDateTime.now(DateTimeZone.forID("America/Lima")).toDate();
-	}
-
-	public String getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(String customer) {
-		this.customer = customer;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getDescriptionProduct() {
-		return descriptionProduct;
-	}
-
-	public void setDescriptionProduct(String descriptionProduct) {
-		this.descriptionProduct = descriptionProduct;
-	}
-
-	public double getUnitPriceProduct() {
-		return unitPriceProduct;
-	}
-
-	public void setUnitPriceProduct(double unitPriceProduct) {
-		this.unitPriceProduct = unitPriceProduct;
-	}
-
-	public double getMountProduct() {
-		return mountProduct;
-	}
-
-	public void setMountProduct(double mountProduct) {
-		this.mountProduct = mountProduct;
-	}
-
 	public double getTotal() {
 		return total;
-	}
-
-	public void setTotal() {
-		this.total = unitPriceProduct * mountProduct;
 	}
 
 }

@@ -16,17 +16,16 @@ import model.entity.Resource;
 public class ResourceControllerIndex extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-//		if (ACL_Controller.isAvalible(req, resp)) {
-			
+		if (ACL_Controller.isAvalible(req, resp)) {
+
 			PersistenceManager pm = PMF.get().getPersistenceManager();
-			
+
 			String query = "SELECT FROM " + Resource.class.getName();
 			List<Resource> resources = (List<Resource>) pm.newQuery(query).execute();
 			req.setAttribute("resources", resources);
 			pm.close();
-			
-			
+
 			req.getRequestDispatcher("/WEB-INF/Views/Resource/index.jsp").forward(req, resp);
-//		}
+		}
 	}
 }

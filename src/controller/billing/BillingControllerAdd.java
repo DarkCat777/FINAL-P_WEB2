@@ -14,13 +14,19 @@ import javax.servlet.ServletException;
 import controller.ACL_Controller;
 import controller.PMF;
 import model.entity.Billing;
+import model.entity.Product;
 import model.entity.Users;
 
 @SuppressWarnings("serial")
 public class BillingControllerAdd extends HttpServlet {
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		if (ACL_Controller.isAvalible(req, resp)) {
 			// Servlet Original
+			PersistenceManager pm=PMF.get().getPersistenceManager();
+			String query="SELECT FROM "+Product.class.getName();
+			List<Product> products=(List<Product>) pm.newQuery(query).execute();
+			req.setAttribute("products", products);
 			req.getRequestDispatcher("/WEB-INF/Views/Billing/add.jsp").forward(req, resp);
 		}
 	}
@@ -36,15 +42,13 @@ public class BillingControllerAdd extends HttpServlet {
 		if (!user.isEmpty()) {
 			idUser = user.get(0).getId();
 		}
-		String customer = req.getParameter("customer");
-		String address = req.getParameter("address");
-		String descriptionProduct = req.getParameter("descriptionproduct");
-		double unitPriceProduct = Double.parseDouble(req.getParameter("unitpriceproduct"));
-		double mountProduct = Double.parseDouble(req.getParameter("mount"));
+		
+		Long idProduct=Long.parseLong(req.getParameter("idproduct"));
+		int cantidad=Integer.parseInt(req.getParameter("cantidad"));
 		// Falta pensar como hacerlo
 		try {
-			Billing billing = new Billing(customer, address, descriptionProduct, unitPriceProduct, mountProduct,
-					idUser);
+			Billing billing = new Billing(idUser);
+			billing.addProduct(idProduct, cantidad);
 			pm.makePersistent(billing);
 			pm.close();
 			resp.sendRedirect("/billing");// ControllerIndex.java

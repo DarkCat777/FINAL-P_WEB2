@@ -19,7 +19,7 @@ public class UsersControllerIndex extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		if (ACL_Controller.isAvalible(req, resp)) {
+		if (ACL_Controller.isAvalible(req, resp)) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			
 			String query = "SELECT FROM " + Users.class.getName();
@@ -32,6 +32,6 @@ public class UsersControllerIndex extends HttpServlet {
 			
 			pm.close();
 			req.getRequestDispatcher("/WEB-INF/Views/Users/index.jsp").forward(req, resp);
-//		}
+		}
 	}
 }

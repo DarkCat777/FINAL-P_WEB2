@@ -16,7 +16,7 @@ import model.entity.Resource;
 public class ResourceControllerAdd extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-//		if (ACL_Controller.isAvalible(req, resp)) {
+		if (ACL_Controller.isAvalible(req, resp)) {
 			PersistenceManager pm= PMF.get().getPersistenceManager();
 			
 			String query1 = "select from " + Resource.class.getName();
@@ -24,7 +24,7 @@ public class ResourceControllerAdd extends HttpServlet {
 			req.setAttribute("resources", resources);
 			
 			req.getRequestDispatcher("/WEB-INF/Views/Resource/add.jsp").forward(req, resp);
-//		}
+		}
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

@@ -20,11 +20,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/fonts.css">
 </head>
 <body>
-	<%if(true){%>
 		<jsp:include page="../Menu/menu2.jsp" flush="true"/>
-	<% }else { %>
-	<p>Perro</p>
-	<%} %>
 	<div class="contenido">
 		<h2 id="id" name="<%=user.getId() %>">Perfil de Usuario: </h2>
 		<table class="vertical-table">

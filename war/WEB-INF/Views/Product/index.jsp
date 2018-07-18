@@ -19,8 +19,6 @@
 <title>NET & JAC</title>
 </head>
 
-
-
 <body>
 	<jsp:include page="../Menu/menu2.jsp" flush="true"/>
 	<div class="contenedor-form">
@@ -28,7 +26,7 @@
 				<%
 					if (products.isEmpty()) {
 				%>
-				<p>No se encuentran productos.AÃ±ada Productos</p>
+				<p>No se encuentran productos.<a href="/product/add">Añada Productos</a></p>
 				<%
 					} else {
 				%>

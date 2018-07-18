@@ -2,11 +2,10 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.entity.*"%>
-<%@ page import="com.google.appengine.api.users.*"%>
 <%
 	List<Billing> billings = (List<Billing>) request.getAttribute("billings");
-	UserService use = UserServiceFactory.getUserService();
-	User user = use.getCurrentUser();
+	List<Product> products = (List<Product>) request.getAttribute("products");
+	List<Users> users = (List<Users>) request.getAttribute("users");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +22,6 @@
 
 <body>
 <jsp:include page="../Menu/menu2.jsp" flush="true"/>
-				<div class="inner cover">
-				<br><br><br><br>
 					<div class="contenedor-form">
 						<div class="titulo">
 							<h1>Facturas Disponibles</h1>
@@ -43,9 +40,7 @@
 							<table>
 							<thead>
 								<tr>
-									<th><b>Empresa</b></th>
-									<th><b>Producto</b></th>
-									<th><b>Valor de Venta</b></th>
+									<th><b>Usuario</b></th>
 									<th><b>Fecha de Facturación</b></th>
 									<th><b>Código de la Factura</b></th>
 									<th><b>Operaciones</b></th>
@@ -55,10 +50,11 @@
 									for (Billing bill : billings) {
 								%>
 								<tr class="contenido">
-									<td><%=bill.getCustomer()%></td>
-									<td><%=bill.getDescriptionProduct()%></td>
-									<td><%=bill.getTotal()%></td>
-									<td><%=bill.getDateIn()%></td>
+									<%for(Users us:users){
+										if(us.getId().equals(bill.getIdUser())){%>
+											<td><%=us.getEmail()%></td>
+									<% }}%>
+									<td><%=bill.getDateCreate()%></td>
 									<td><%=bill.getId()%></td>
 									<td>
 										<a href="/billing/view?id=<%=bill.getId()%>">Ver</a>
@@ -75,7 +71,6 @@
 							%>
 						</div>
 					</div>
-				</div>
 
 				<!-- Bootstrap core JavaScript
     ================================================== -->
@@ -92,4 +87,3 @@
 				<script src="/JS/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
-

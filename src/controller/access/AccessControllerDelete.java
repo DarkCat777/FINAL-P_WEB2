@@ -12,7 +12,7 @@ import model.entity.Access;
 
 @SuppressWarnings("serial")
 public class AccessControllerDelete extends HttpServlet {
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		if (ACL_Controller.isAvalible(req, resp)) {
 			Long id = Long.parseLong(req.getParameter("id"));
 			delete(id);

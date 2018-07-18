@@ -17,7 +17,7 @@ import model.entity.Users;
 public class UsersControllerView extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		if (ACL_Controller.isAvalible(req, resp)) {
+		if (ACL_Controller.isAvalible(req, resp)) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			Long id = Long.parseLong(req.getParameter("id"));
 			Users user = pm.getObjectById(Users.class, id);
@@ -31,6 +31,6 @@ public class UsersControllerView extends HttpServlet {
 
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Views/Users/view.jsp");//directorio
 			rd.forward(req, resp);
-//		}
+		}
 	}
 }

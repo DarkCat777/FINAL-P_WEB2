@@ -18,7 +18,7 @@ import model.entity.Role;
 public class AccessControllerAdd extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-//		if (ACL_Controller.isAvalible(req, resp)) {
+		if (ACL_Controller.isAvalible(req, resp)) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			
 			String query = "SELECT FROM " + Role.class.getName();
@@ -38,7 +38,7 @@ public class AccessControllerAdd extends HttpServlet {
 			
 			
 			req.getRequestDispatcher("/WEB-INF/Views/Access/add.jsp").forward(req, resp);
-//		}
+		}
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

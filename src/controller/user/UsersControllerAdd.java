@@ -20,7 +20,7 @@ import model.entity.Users;
 public class UsersControllerAdd extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		if (ACL_Controller.isAvalible(req, resp)) {
+		if (ACL_Controller.isAvalible(req, resp)) {
 			
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 
@@ -34,7 +34,7 @@ public class UsersControllerAdd extends HttpServlet {
 
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Views/Users/add.jsp");
 			rd.forward(req, resp);
-//		}
+		}
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,21 +49,21 @@ public class UsersControllerAdd extends HttpServlet {
 		String dia = almacenaFecha.substring(8);
 		String f = dia + "/" + mes + "/" + año;
 		DateFormat df = DateFormat.getDateInstance(2);
-		Date closeDate;
+		Date closeDate=null;
 		String cellphone = request.getParameter("cellphone");
 		String email = request.getParameter("email");
 		boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
 		Long idRole = Long.parseLong(request.getParameter("idroles")); // idRoles
 																		// JSP
-																		// cambiar
+																	// cambiar
 		try {
 			closeDate = df.parse(f);
-			Users user = new Users(name, city, closeDate, cellphone, email, gender, idRole);
-			pm.makePersistent(user);
-			pm.close();
-			response.sendRedirect("/user");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		Users user = new Users(name, city, closeDate, cellphone, email, gender, idRole);
+		pm.makePersistent(user);
+		pm.close();
+		response.sendRedirect("/user");
 	}
 }

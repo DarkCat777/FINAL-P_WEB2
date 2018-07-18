@@ -2,11 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.entity.*"%>
-<%@ page import="com.google.appengine.api.users.*"%>
 <%
-	List<Billing> billings = (List<Billing>) request.getAttribute("billings");
-	UserService use = UserServiceFactory.getUserService();
-	User user = use.getCurrentUser();
+	List<Product> products = (List<Product>) request.getAttribute("products");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +17,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Añadir Billing</title>
 <style>
-	b{
+	b, label{
 		color:black;
 	}
 </style>
@@ -35,27 +32,23 @@
 						</div>
 						<div class="formulario">
 							<form action="/billing/add" method="post">
-								<label><b>Nombre de la Empresa: </b></label> <br> <input
-									type="text" name="customer" class="dato"
-									placeholder="Ingrese el nombre de la empresa" required>
-								<br> <label><b>Dirección:</b></label> <br> <input
-									type="text" name="address" class="dato"
-									placeholder="Ingrese la direccion de la empresa" required>
-								<br> <label><b>Producto:</b></label> <br> <input
-									type="text" name="descriptionproduct" class="dato"
-									placeholder="Ingrese la nombre del producto" required>
-								<br> <label><b>Precio Unitario:</b></label> <br>
-								<input type="text" name="unitpriceproduct" class="dato"
-									placeholder="Ingrese precio unitario del producto" pattern="^[0-9]+(.[0-9]+)?$" required>
-								<br> <label><b>Cantidad:</b></label> <br> <input
-									type="text" name="mount" class="dato"
-									placeholder="Ingrese la direccion de la empresa" pattern="^[0-9]+(.[0-9]+)?$" required>
-								<br> <input class="boton" type="submit"
-									value="Añadir">
+								<label>Productos</label><br>
+								<%if(!products.isEmpty()){ %>
+								<select name="idproduct">
+									<%for(Product product:products){ %>
+									<option value="<%=product.getId()%>"><%=product.getName() %></option>
+									<%}%>
+								</select><br>
+								<label>Cantidad</label><br>
+								<input type="number" min="1" name="cantidad">
+								<%} else{%>
+								<a href="/product/add">Añadir producto</a>
+								<%} %>
+								<input type="submit" value="Añadir">
 							</form>
 						</div>
 						<div class=link>
-							<a href="/billing"  class="link"><h4>Lista de Facturas</h4></a>
+							<a href="/billing" class="link"><h4>Lista de Facturas</h4></a>
 						</div>
 					</div>
 				</div>

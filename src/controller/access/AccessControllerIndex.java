@@ -18,7 +18,7 @@ import model.entity.Role;
 public class AccessControllerIndex extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		//if (ACL_Controller.isAvalible(req, resp)) {
+		if (ACL_Controller.isAvalible(req, resp)) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			
 			
@@ -33,6 +33,6 @@ public class AccessControllerIndex extends HttpServlet {
 			req.setAttribute("resources", resources);
 			req.setAttribute("access", access);
 			req.getRequestDispatcher("/WEB-INF/Views/Access/index.jsp").forward(req, resp);
-		//}
+		}
 	}
 }

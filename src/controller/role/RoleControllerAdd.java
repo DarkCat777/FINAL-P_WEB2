@@ -16,7 +16,7 @@ import model.entity.Role;
 public class RoleControllerAdd extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-//		if (ACL_Controller.isAvalible(req, resp)) {
+		if (ACL_Controller.isAvalible(req, resp)) {
 			
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			String query1 = "SELECT FROM " + Role.class.getName();
@@ -25,7 +25,7 @@ public class RoleControllerAdd extends HttpServlet {
 			req.setAttribute("roles", roles);
 			
 			req.getRequestDispatcher("/WEB-INF/Views/Role/add.jsp").forward(req, resp);
-//		}
+		}
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

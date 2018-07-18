@@ -17,7 +17,7 @@ import model.entity.Role;
 public class RoleControllerIndex extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		if (ACL_Controller.isAvalible(req, resp)) {
+		if (ACL_Controller.isAvalible(req, resp)) {
 			
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			
@@ -28,6 +28,6 @@ public class RoleControllerIndex extends HttpServlet {
 			
 			req.setAttribute("roles", roles);
 			req.getRequestDispatcher("/WEB-INF/Views/Role/index.jsp").forward(req, resp);
-//		}
+		}
 	}
 }
