@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css" href="/css/estilosIndex.css">
 <link rel="stylesheet" type="text/css" href="/css/fonts.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Editar Billing</title>
+<title>Ver Billing</title>
 <style>
 b, h2 {
 	color: black;

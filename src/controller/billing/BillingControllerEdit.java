@@ -37,15 +37,13 @@ public class BillingControllerEdit extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Billing billing = pm.getObjectById(Billing.class, Long.parseLong(req.getParameter("id")));
-		if(req.getParameter("operación").equalsIgnoreCase("añadir")){//Esto va en el jsp
+		if(req.getParameter("operacion").equalsIgnoreCase("anadir")){//Esto va en el jsp
 			Long idProduct=Long.parseLong(req.getParameter("idproduct"));
 			int cantidad=Integer.parseInt(req.getParameter("cantidad"));
 			billing.addProduct(idProduct, cantidad);
-		}else if(req.getParameter("operación").equalsIgnoreCase("eliminar")){
+		}else if(req.getParameter("operacion").equalsIgnoreCase("eliminar")){
 			Long idProduct=Long.parseLong(req.getParameter("idproduct"));//Esto tambien va en el jsp
 			billing.removeProduct(idProduct);
-		}else if(req.getParameter("operación").equalsIgnoreCase("añadircantidadproducto")){
-			Long idProduct=Long.parseLong(req.getParameter("idproduct"));
 		}
 		pm.close();
 		resp.sendRedirect("/billing/view?id=" + req.getParameter("id"));// Enviar														// ViewController

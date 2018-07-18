@@ -50,37 +50,67 @@ b, h2 {
 							</tr>
 						</thead>
 						<tr>
-							<td><%=user.getName() %></td>
-							<td><%=user.getCity() %></td>
-							<td><%=billing.getDateCreate() %></td>
-							<td><%=billing.getTotal() %></td>
-							<td><%=(billing.getTotal()*billing.getIgv()) %></td>
-							<td><%=(billing.getTotal()*(billing.getIgv()+1)) %></td>
-							<td><%=billing.getId() %></td>
+							<td><%=user.getName()%></td>
+							<td><%=user.getCity()%></td>
+							<td><%=billing.getDateCreate()%></td>
+							<td><%=billing.getTotal()%></td>
+							<td><%=(billing.getTotal() * billing.getIgv())%></td>
+							<td><%=(billing.getTotal() * (billing.getIgv() + 1))%></td>
+							<td><%=billing.getId()%></td>
 						</tr>
 					</table>
 					<br>
 					<table>
 						<thead>
-						<tr>
-							<td>Nombre del Producto</td>
-							<td>Descripción del Producto</td>
-							<td>Marca del Producto</td>
-							<td>Modelo del Producto</td>
-							<td>Cantidad</td>
-							<td>Precio Unitario</td>
-						</tr>
+							<tr>
+								<td>Nombre del Producto</td>
+								<td>Descripción del Producto</td>
+								<td>Marca del Producto</td>
+								<td>Modelo del Producto</td>
+								<td>Cantidad</td>
+								<td>Precio Unitario</td>
+								<td>Quitar</td>
+							</tr>
 						</thead>
+						<%
+							for (int i = 0; i < billing.getIdProducts().size(); i++) {
+						%>
 						<tr>
-						<!--COntenido de la tabla de productos con los arraylist6 -->
+							<!--COntenido de la tabla de productos con los arraylist6 -->
+							<%
+								for (Product product : products) {
+										if (product.getId().equals(billing.getIdProducts().get(i))) {
+							%>
+							<td><%=product.getName()%></td>
+							<td><%=product.getDescription()%></td>
+							<td><%=product.getMarca()%></td>
+							<td><%=product.getModel()%></td>
+							<td><%=billing.getCantidad().get(i)%></td>
+							<td><%=product.getPrice()%></td>
+							<td>
+								<form action="/billing/edit" method="post">
+									<input type="hidden" name="id" value="<%=billing.getId()%>">
+									<input type="hidden" name="operacion" value="eliminar">
+									<input type="hidden" name="idproduct" value="<%=product.getId()%>">
+									<input type="submit" value="Quitar producto">
+								</form>
+							</td>
+							<%
+								}
+									}
+							%>
 						</tr>
+						<%
+							}
+						%>
 					</table>
 				</div>
 			</div>
 			<div class="formularioAñadirProducto">
 				<h3>Añadir mas productos</h3>
 				<form action="/billing/edit" method="post">
-					<input type="hidden" name="operación" value="añadir"> <label>Producto</label><br>
+				<input type="hidden" name="id" value="<%=billing.getId()%>">
+					<input type="hidden" name="operacion" value="anadir"> <label>Producto</label><br>
 					<select name="idproduct">
 						<%
 							for (Product product : products) {
@@ -91,6 +121,7 @@ b, h2 {
 						%>
 					</select> <br> <label>Cantidad</label><br> <input type="number"
 						min="1" name="cantidad" required>
+					<input type="submit" value="Añadir a la Factura">
 				</form>
 			</div>
 			<div class="link">
