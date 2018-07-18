@@ -12,7 +12,7 @@ import model.entity.Users;
 
 @SuppressWarnings("serial")
 public class UsersControllerDelete extends HttpServlet {
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		if(ACL_Controller.isAvalible(req, resp)){
 			
 			PersistenceManager pm2 = PMF.get().getPersistenceManager();

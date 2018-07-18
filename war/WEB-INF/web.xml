@@ -436,7 +436,30 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	 	<servlet-name>CartControllerView</servlet-name>
 	 	<url-pattern>/cart/view</url-pattern>
 	 </servlet-mapping>
-
+	 
+	 <!-- Carrito Controller Edit 
+	 Dirección: /cart/edit-->
+	 <servlet>
+	 	<servlet-name>CartControllerEdit</servlet-name>
+	 	<servlet-class>controller.cart.CartControllerEdit</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>CartControllerEdit</servlet-name>
+	 	<url-pattern>/cart/edit</url-pattern>
+	 </servlet-mapping>
+	 
+	 <!-- Report -->
+<!-- Report Controller Search
+	 Dirección: /report/search -->
+	 <servlet>
+	 	<servlet-name>ControllerReportSearch</servlet-name>
+	 	<servlet-class>controller.report.ControllerReportSearch</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>ControllerReportSearch</servlet-name>
+	 	<url-pattern>/report/search</url-pattern>
+	 </servlet-mapping>
+	 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

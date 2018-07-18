@@ -58,4 +58,17 @@ public class Cart {
 		this.cantidad--;
 	}
 
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+
 }

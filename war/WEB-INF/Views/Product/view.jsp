@@ -28,9 +28,10 @@
 <body>
 	<jsp:include page="../Menu/menu2.jsp" flush="true" />
 	<div class="contenedor-form">
+	<center>
 	<h2>
 		Producto
-		<%=product.getId()%></h2>
+		<%=product.getName()%></h2></center>	
 	<a id="add" href="/product" title="Añadir Producto"></a>
 	<div id="tabla">
 
@@ -91,21 +92,23 @@
 			src="/lista.png" width="50" height="50"> </a>
 		<form action="/product/delete" method="get">
 			<input type="hidden" value="<%=product.getId()%>" name="id">
-			<input type="image" src="/delete.png" width="30" height="30" />
+			<input type="image" src="/delete.png" width="50" height="60" />
 	</center>
 	</form>
 	<div class="contenedor-form">
+	<div class="formulario">
 		<center>
-			<h3>Comentarios:</h3>
-			<br>
+			<h1>COMENTARIOS</h1>
 			<br>
 			<div>
-			<b>Añadir comentario: </b>
+			<b>AÑADIR COMENTARIO: </b>
 			<br><br>
 			<form action="/product/addcoment" method="GET">
-			<input type="text" name="coment" placeholder="¿Que piensas del producto?">
+			<input type="text" maxlength="60" name="coment" placeholder="¿Que piensas del producto?">
 			<input type="hidden" value="<%=product.getId()%>" name="id">
 			<input type="submit" value="Publicar comentario">
+			<br>
+			<br>
 			</form>
 			</div>
 			<div>
@@ -123,6 +126,7 @@
 					<% }%>
 				</table>
 				<%}%>
+			</div>
 			</div>
 		</center>
 	</div>

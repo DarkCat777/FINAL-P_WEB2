@@ -50,9 +50,7 @@
 <body>
 	<%if(true){%>
 		<jsp:include page="../Menu/menu2.jsp" flush="true"/>
-	<% }else { %>
-	<p>Perro</p>
-	<%} %>
+	<% }%>
 	<div class="contenedor-form">
 		<div class="formulario">
 			<form action="/user/edit" method="post" name="formulario" onsubmit="return comprobar()">
@@ -63,10 +61,6 @@
 				
 				<p>Edite su Ciudad de Origen</p>
 				<input type="text"name="city" placeholder="Ingrese su ciudad" value="<%=user.getCity()%>" required>
-				
-				<p>Ingrese su fecha de Nacimiento</p>
-				<input type="date" id="birth" name="birth"
-				placeholder="edite su fecha de Nacimiento" value="<%=sdf.format(user.getBirth())%>" required>
 				
 				<p>Edite su número de celular</p>
 				<input type="text" name="cellphone" placeholder="Ingrese su celular" value="<%=user.getCellphone()%>" required>

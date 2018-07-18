@@ -56,13 +56,8 @@
 					  total += (precio*cantidad);
 					  }
 				  }%>
-				  <th>
-				  	<form method="post" action="/cart/edit">
-				  	<input type="hidden" name="idproduct" value="<%=carts.get(i).getId()%>">
-				  	<input type="number" name="cantidad" value="<%=carts.get(i).getCantidad()%>">
-				  	<input type="submit" value="Cambiar cantidad">
-				  	</form>
-				  </th>
+				  
+				  <th><%=carts.get(i).getCantidad()%></th>
 				  <th><a href="/cart/delete?idproduct=<%=carts.get(i).getIdProduct()%>">Quitar</a></th>
 				  <th><%=(cantidad*precio)%></th>
 			</tr>

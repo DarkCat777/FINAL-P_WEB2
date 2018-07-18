@@ -3,12 +3,9 @@
 <%@ page import="model.entity.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
-	List<Ticket> tickets = (List<Ticket>)request.getAttribute("tickets");
-	Ticket tick=null;
- 	for(int i=0; i<tickets.size(); i++) {
-		tick = (Ticket)tickets.get(i);
- 	}
- 	 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+Ticket ticket= (Ticket) request.getAttribute("ticket");
+Users user = (Users) request.getAttribute("user");
+List<Product> products=(List<Product>)request.getAttribute("products");
  %> 
 <!DOCTYPE html>
 <html>
@@ -27,109 +24,76 @@
 
 <body>
 
-<jsp:include page="../Menu/menu2.jsp" flush="true"/>
-<div class="contenido" style="background-color: white;">
-<ul style=" position: absolute;
-	list-style: none;
-	margin-top: 1%;
-	margin-left: 10%;	
-	font-size: 30px;">
-	<li><a href="/tickets/add"  style="text-decoration: none; color: #ffffff;">Nuevo Ticket</a></li>
-</ul>
-<br><br>
+<body>
+	<jsp:include page="../Menu/menu2.jsp" flush="true" />
 
-<table  border="0" padding="0" width="100%"
-		style="border-collapse: separate; border-spacing: 1px;">
-	<tr>
-		<td>
-			<center><img src = "../favicon.jpeg" width="100px" height="100px"></center>
-		</td>
-		<td>
-			<table border="0" padding="0" bgcolor="#EBFBEE" width="98%" height="80%" 
-				   style="border-radius:15px; border-collapse: separate; border-spacing: 1px;">
-				<tr><td style="text-align: center; ">Arequipa</td></tr>
-				<tr><td style="text-align: center; ">Urb. El palacio II Etapa - Sachaca</td></tr>
-				<tr><td style="text-align: center; " >Telf: 959995351</td></tr>
+	<div class="contenedor-form">
+		<div class="titulo">
+			<h1>Factura</h1>
+		</div>
+		<div class="vista">
+			<table>
+				<thead>
+					<tr>
+						<th>Nombre </th>
+						<th>Dirección</th>
+						<th>Fecha</th>
+						<th>SUB Total</th>
+						<th>IGV:(18%)</th>
+						<th>Total</th>
+						<th>Codigo de la Boleta</th>
+					</tr>
+				</thead>
+				<tr>
+					<td><%=user.getName()%></td>
+					<td><%=user.getCity()%></td>
+					<td><%=ticket.getCreate()%></td>
+					<td><%=ticket.getTotal()%></td>
+					<td><%=(ticket.getTotal() * ticket.getIGV())%></td>
+					<td><%=(ticket.getTotal() * (ticket.getIGV() + 1))%></td>
+					<td><%=ticket.getId()%></td>
+				</tr>
 			</table>
-		</td>
-		<td>
-			<table border="0" padding="0" bgcolor="#EBFBEE"	width="100%" height="80%"
-	 			   style="border: solid; border-color: black; border-width: 1px; border-radius:15px;
-	 			          border-collapse: separate; border-spacing: 1px;">
-				<tr><td style="font-weight: bold; text-align: center; font-size: 20px;">R.U.C. 20454348428</td></tr>
-				<tr><td style="font-weight: bold; text-align: center;">Boleta Electronica</td></tr>
-				<tr><td style="font-weight: bold; text-align: center;">#<%=tick.getId()%></td></tr>
+			<br>
+			<table>
+				<thead>
+					<tr>
+						<td>Nombre del Producto</td>
+						<td>Descripción del Producto</td>
+						<td>Marca del Producto</td>
+						<td>Modelo del Producto</td>
+						<td>Cantidad</td>
+						<td>Precio Unitario</td>
+					</tr>
+				</thead>
+				<%for(int i=0;i<ticket.getIdProducts().size();i++){ %>
+				<tr>
+					<!--COntenido de la tabla de productos con los arraylist6 -->
+					<%for(Product product:products){ 
+						if(product.getId().equals(ticket.getIdProducts().get(i))){%>
+							<td><%=product.getName() %></td>
+							<td><%=product.getDescription() %></td>
+							<td><%=product.getMarca() %></td>
+							<td><%=product.getModel() %></td>
+							<td><%=ticket.getCantidad().get(i) %></td>
+							<td><%=product.getPrice() %></td>
+					<%}} %>
+				</tr>
+				<%} %>
 			</table>
-		</td>
-	</tr>
-</table><br>
-
-<table border="0" padding="0" bgcolor="#EBFBEE"	width="100%" height="80%"
-	   style="border: solid; border-color: black; border-width: 1px; border-radius:15px;
-	   border-collapse: separate; border-spacing: 1px;">
-	<tr>
-		<td style="font-weight: bold; text-align: center;">Fecha:</td>
-		<td style="font-weight: bold; text-align: center;"><%=sdf.format(tick.getCreate())%></td>
-	</tr>
-	<tr>
-		<td style="font-weight: bold; text-align: center;">Señor(a):</td>
-		<td style="font-weight: bold; text-align: center;"><%=tick.getNameCustomer() %></td>
-	</tr>
-	<tr>
-		<td style="font-weight: bold; text-align: center;">D.N.I:</td>
-		<td style="font-weight: bold; text-align: center;"><%=tick.getCustomerdni() %></td>
-	</tr>
-	<tr>
-		<td style="font-weight: bold; text-align: center;">Dirección:</td>
-		<td style="font-weight: bold; text-align: center;"><%=tick.getAddress()%></td>
-	</tr>
-	<tr>
-		<td style="font-weight: bold; text-align: center;">Tipo de Moneda:</td>
-		<td style="font-weight: bold; text-align: center;">Nuevos Soles</td>
-	</tr>
-	<tr>
-		<td style="font-weight: bold; text-align: center;">Observación:</td>
-		<td style="font-weight: bold; text-align: center;">Venta de Productos Electronicos</td>
-	</tr>
-</table><br>
-
-<table padding="0" style="width:100%; height: 100%; border: solid; border-color: black; border-width: 1px; border-radius:15px; border-collapse: separate; border-spacing: 1px;">
-	<tr>
-		<td>Cantidad</td>
-		<td>Código</td>
-		<td>Descripción</td>
-		<td>Valor Unitario</td>
-		<td>Descuento</td>
-		<td>Importe de Venta(**)</td>
-	</tr>
-	<tr>
-		<td><%=tick.getMountProduct() %></td>
-		<td><%=tick.getIdProducts().get(0) %></td>
-		<td><%=tick.getDescriptionProduct() %></td>
-		<td><%=tick.getUnitPrice() %></td>
-		<td><%=tick.getTotal()%></td>
-	</tr>
-</table><br>
-
-<table bgcolor="#EBFBEE" style="width: 25%;height: 50px; position:absolute;right: 115px; border: solid; border-color: black; border-width: 1px; border-radius:15px; border-collapse: separate; border-spacing: 1px;">
-	<tr>
-		<td>Otros Campos:</td>
-		<td>0.00</td>
-	</tr>
-	<tr>
-		<td>Otros Tributos:</td>
-		<td>0.00</td>
-	</tr>
-	<tr>
-		<td>IGV:</td>
-		<td><%=tick.getIGV() %></td>
-	</tr>
-	<tr>
-		<td>Importe Total:</td>
-		<td><%=tick.getTotal() %></td>
-	</tr>	
-</table><br></div>
-
-
+		</div>
+		<br>
+		<form action="/tickets/delete" method="get">
+			<input type="hidden" value="<%=ticket.getId()%>" name="id">
+			<input class="boton" type="submit" value="Borrar">
+		</form>
+		<form action="/tickets/edit" method="get">
+			<input type="hidden" value="<%=ticket.getId()%>" name="id">
+			<input class="boton" type="submit" value="Editar">
+		</form>
+		<div class=link>
+			<a href="/tickets" title="Añadir Boleta">Lista de Boletas</a>
+		</div>
+	</div>
 </body>
 </html>

@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="/css/estilosIndex.css">
 <link rel="stylesheet" type="text/css" href="/css/fonts.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>NET & JAC</title>
+<title>IndexProduct</title>
 </head>
 
 <body>
@@ -75,7 +75,9 @@
 					}
 				%>
 	</div>
-
+<div class="link">
+			<a id="add"href="/product/add" title="Añadir Producto"><img alt="Añadir producto" src="aumentar.png" id="img"></a>
+		</div>
 </body>
 </html>
 

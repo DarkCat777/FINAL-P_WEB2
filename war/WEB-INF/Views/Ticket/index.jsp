@@ -2,7 +2,9 @@
 <%@ page import="java.util.List"%>
 <%@ page import="model.entity.*"%>
 <%
-	List<Ticket> tickets = (List<Ticket>) request.getAttribute("tickets");
+List<Ticket> tickets = (List<Ticket>) request.getAttribute("tickets");
+List<Product> products = (List<Product>) request.getAttribute("products");
+List<Users> users = (List<Users>) request.getAttribute("users");
 %>
 
 <!DOCTYPE html>
@@ -22,54 +24,56 @@
 </head>
 
 <body background="fondo.png">
-
 <jsp:include page="../Menu/menu2.jsp" flush="true"/>
-<div class="contenedor-form">
-	<%
-		if (tickets.size() > 0) {
-	%>
-	<div id="topbar">
-	<h1>Tickets</h1>
-	</div>
-	
-	<div id="table">
-	<table>
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Cliente</th>
-			<th>Direccion</th>
-			<th>Descripcion</th>
-			<th>Estado</th>
-			<th>Opciones</th>
-		</tr>
-		</thead>
-		<%
-			for (int i = 0; i < tickets.size(); i++) {
-					Ticket tick = (Ticket) tickets.get(i);
-		%>
-		<tr>
-			<td><%=tick.getId()%></td>
-			<td><%=tick.getNameCustomer()%></td>
-			<td><%=tick.getAddress()%></td>
-			<td><%=tick.getDescriptionProduct()%></td>
-			<td><%=tick.isStatus()%></td>
-			<td><a href="/tickets/view?id=<%=tick.getId()%>">View</a> <a href="/tickets/edit?id=<%=tick.getId()%>">Edit</a> <a href="/tickets/delete?id=<%=tick.getId()%>">Delete</a></td>
-		</tr>
-		<%
-			}
-		%>
-	</table>
-	</div>
-	<%}else {%>
-		<div id="topbar">
-		<h1>No hay Tickets que mostrar</h1>
-		</div>
-	<%} %>
+					<div class="contenedor-form">
+						<div class="titulo">
+							<h1>Tickets Disponibles</h1>
+						</div>
+						<div >
+							<a href="/tickets/add" class="link" title="Añadir Ticket">Añadir Ticket</a>
+						</div>
+						<div class="vista">
+						 	<%
+								if (tickets.isEmpty()) {
+							%>
+							<h4>No se encuentran tickets. Añada tickets</h4>
+							<%
+								} else {
+							%>
+							<table>
+							<thead>
+								<tr>
+									<th><b>Usuario</b></th>
+									<th><b>Fecha de Boleta</b></th>
+									<th><b>Código de la Boleta</b></th>
+									<th><b>Operaciones</b></th>
+								</tr>
+								</thead>
+								<%
+									for (Ticket tick : tickets) {
+								%>
+								<tr class="contenido">
+									<%for(Users us:users){
+										if(us.getId().equals(tick.getIdUser())){%>
+											<td><%=us.getEmail()%></td>
+									<% }}%>
+									<td><%=tick.getCreate()%></td>
+									<td><%=tick.getId()%></td>
+									<td>
+										<a href="/tickets/view?id=<%=tick.getId()%>">Ver</a>
+										<a href="/tickets/edit?id=<%=tick.getId()%>">Editar</a>
+										<a href="/tickets/delete?id=<%=tick.getId()%>">Borrar</a>
+									</td>
+								</tr>
+								<%
+									}
+								%>
+							</table>
+							<%
+								}
+							%>
+						</div>
+					</div>
 
-<ul id="list">
-<li><a href="/tickets/add">Nuevo Ticket</a></li>
-</ul>
-</div>
 </body>
 </html>

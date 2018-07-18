@@ -48,18 +48,6 @@ public class UsersControllerEdit extends HttpServlet {
 
 		String name = req.getParameter("name");
 		String city = req.getParameter("city");
-		String almacenaFecha = req.getParameter("birth");
-		String año = almacenaFecha.substring(0, 4);
-		String mes = almacenaFecha.substring(5, 7);
-		String dia = almacenaFecha.substring(8);
-		String f = dia + "/" + mes + "/" + año;
-		DateFormat df = DateFormat.getDateInstance(2);
-		Date closeDate = new Date();
-		try {
-			closeDate = df.parse(f);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 		String cellphone = req.getParameter("cellphone");
 		String email = req.getParameter("email");
 		boolean gender = Boolean.parseBoolean(req.getParameter("gender"));
@@ -68,7 +56,6 @@ public class UsersControllerEdit extends HttpServlet {
 
 		user.setName(name);
 		user.setCity(city);
-		user.setBirth(closeDate);
 		user.setCellphone(cellphone);
 		user.setEmail(email);
 		user.setGender(gender);

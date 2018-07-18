@@ -20,9 +20,8 @@ public class TicketControllerDelete extends HttpServlet {
 			Ticket ticket = pm.getObjectById(Ticket.class, new Long(req.getParameter("id")).longValue());
 			if (ticket != null) {
 				pm.deletePersistent(ticket);
-				pm.close();
-				resp.sendRedirect("/tickets");
 			}
+			pm.close();
 			resp.sendRedirect("/tickets");
 
 		}

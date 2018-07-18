@@ -1,14 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.entity.*"%>
 
 <% 
-Date fecha = new Date();
-SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
-
-List<Ticket> tickets = (List<Ticket>)request.getAttribute("tickets");
+	List<Product> products = (List<Product>) request.getAttribute("products");
 
 %> 
 
@@ -30,139 +25,40 @@ List<Ticket> tickets = (List<Ticket>)request.getAttribute("tickets");
  	color: black;
  }
 </style>
-<script>
-function comprobar(){
-	var dni = document.formu.dni.value;
-	
-	<%
-	for(int i=0; i<tickets.size(); i++){
-		Ticket ticket = (Ticket)tickets.get(i);
-	%>
-	
-	var dni1 = <%=ticket.getCustomerdni()%>;
-	
-  	if (dni.length != 8)
-  	{
-    	alert("No es un DNI valido!!");
-		return false;
-  	}else if(dni == dni1){
-  		alert("El DNI ya existe!!");
-  		return false;
-  	}
-  	<%}%>
-  	else{
-  		document.forms['formu']['Enviar'].disabled=true;
-  	}
-  	
-  	return true;
-}
-</script>
-
 </head>
 
 <body>
 
-<jsp:include page="../Menu/menu2.jsp" flush="true"/>
-<div class="contenedor-form">
-<h1>Añadir nuevo ticket</h1>
-<form action="/tickets/add" name="formu"  method="post" onsubmit="return comprobar()">
-	
-	  <div id="table">
-	  <table>
-		<tr>
-			<td>Name</td>
-			<td><input type="text" name="namecustomer" required/></td>
-		</tr>
-		<tr>
-			<td>D.N.I.</td>
-			<td><input type="number" name="customerdni" maxlength="8" required/></td>
-		</tr>
-		
-		<tr>
-			<td>Dirección</td>
-			<td><input type="text" name="address" required/></td>
-		</tr>
-		<tr>
-			<td>idProduct</td>
-			<td><input type="text" name="idproduct" value="168974652" readonly/></td>
-		</tr>
-		<tr>
-			<td>Estado</td>
-			<td>
-				<select name="status" required>
-					<option value="true">Pagado</option>
-					<option value="false">Deuda</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>Fecha</td>
-			<td><input type="date" name="datecreate" value="<%=sdf.format(fecha)%>" readonly /></td>
-		</tr>
-		<tr>	
-			<td>Descripcion</td>
-			<td><input type="text" name="descriptionproduct" value="Aqui va la descripcion del producto" readonly/></td>
-		</tr>
-		<tr>
-			<td>Precio Unitario</td>
-			<td>S/<input type="number" name="unitprice" value="100" readonly/></td>
-		</tr>
-		<tr>
-			<td>Cantidad de Productos</td>
-			<td><input type="number" name="mountproduct" value="25" min="10" max="50" step="5" required></td>
-		</tr>
-		<input type="hidden" name="IGV" value="0.18"/>
-		
-	</table>
-	<center>
-	<input class="boton" type="submit" name="Enviar">
-	</center>
-	</div>
-	
-</form>
-</div>
-
-<script>
-	(function(){
-					
-		var formulario = document.getElementsByName('formu')[0],
-		elementos = formulario.elements,
-		boton = document.getElementById('submit');
-					
-					
-		var validarNombre = function(e){
-			
-			if(isNaN(formulario.customer.value)===false){
-				alert("Ingreso no valido en nombre!");
-				document.forms['formu']['Enviar'].disabled=false;
-				e.preventDefault();
-			}
-		}
-		
-		var validarDireccion = function(e){
-			if(isNaN(formulario.address.value===false)){
-				alert("Ingreso no valido en direccion!");
-				document.forms['formu']['Enviar'].disabled=false;
-				e.preventDefault();
-			}
-		}
-
-
-		var validar = function(e){
-			validarNombre(e);
-			validarDireccion(e)
-		}
-					
-		formulario.addEventListener("submit",validar);
-					
-					
-	}())	
-</script>
-
-
-<ul id="list">
-	<li><a href="/tickets/add">Nuevo Ticket</a></li>
-</ul>
+	<jsp:include page="../Menu/menu2.jsp" flush="true"/>
+	<div class="contenedor-form">
+					<div id="c">
+						<div class="titulo">
+							<h1>Añadir Boleta</h1>
+						</div>
+						<div class="formulario">
+							<form action="/tickets/add" method="post">
+								<label>Productos</label><br>
+								<%if(!products.isEmpty()){ %>
+								<label>DNI</label>
+								<input type="text" placeholder="Inrgrese DNI" name="dni">
+								<select name="idproduct">
+									<%for(Product product:products){ %>
+									<option value="<%=product.getId()%>"><%=product.getName() %></option>
+									<%}%>
+								</select><br>
+								<label>Cantidad</label><br>
+								<input type="number" min="1" name="cantidad">
+								<%} else{%>
+								<a href="/product/add">Añadir producto</a>
+								<%} %>
+								<input type="submit" value="Añadir">
+							</form>
+						</div>
+						<div class=link>
+							<a href="/tickets" class="link"><h4>Lista de Boletas</h4></a>
+						</div>
+					</div>
+				</div>
 
 </body>
 </html>

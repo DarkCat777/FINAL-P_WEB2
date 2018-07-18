@@ -18,17 +18,15 @@ public class Users {
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY) private Long id;
 	@Persistent private String name;
 	@Persistent private String city;
-	@Persistent private Date birth;
 	@Persistent private String cellphone;
 	@Persistent private String email;
 	@Persistent private boolean gender;
 	@Persistent private boolean status;
 	@Persistent private Date made;
 	@Persistent private Long idRol;
-	public Users(String name, String city,Date birth,String cellphone,String email,boolean gender,Long idRol){//Date birth,String cellphone,String email,boolean gender,Long idRol){
+	public Users(String name, String city,String cellphone,String email,boolean gender,Long idRol){
 		this.name=name;
 		this.city=city;
-		this.birth=birth;
 		this.cellphone=cellphone;
 		this.email=email;
 		this.gender=gender;
@@ -54,12 +52,6 @@ public class Users {
 	}
 	public void setCity(String city) {
 		this.city = city;
-	}
-	public Date getBirth() {
-		return birth;
-	}
-	public void setBirth(Date birth) {
-		this.birth = birth;
 	}
 	public String getCellphone() {
 		return cellphone;

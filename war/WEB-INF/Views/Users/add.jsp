@@ -61,10 +61,6 @@ function comprobar(){
 				<p>Ingrese su ciudad</p>
 				<input type="text" id="city" name="city"  placeholder="Ingrese su ciudad" required>
 				
-				<p>Ingrese su fecha de Nacimiento</p>
-				<input type="date" id="birth" name="birth" 
-				placeholder="Ingrese su fecha de Nacimiento" required>
-				
 				<p>Ingrese su número de celular </p>
 				<input type="text" id="cellphone" name="cellphone" placeholder="Ingrese su número de celular" required>
 				

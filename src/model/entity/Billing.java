@@ -44,7 +44,7 @@ public class Billing {
 		for (int i = 0; i < this.idProducts.size(); i++) {
 			if (idProducts.get(i).equals(idProduct)) {
 				seAñadio = true;
-				this.cantidad.set(i, cantidad);
+				this.cantidad.set(i, this.cantidad.get(i)+cantidad);
 			}
 		}
 		if (!seAñadio) {

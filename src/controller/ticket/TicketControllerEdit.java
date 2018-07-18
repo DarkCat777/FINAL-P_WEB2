@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 
 @SuppressWarnings("serial")
@@ -18,46 +19,37 @@ public class TicketControllerEdit extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		if (ACL_Controller.isAvalible(req, resp)) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
-			Long id=Long.parseLong(req.getParameter("id"));
-			String query = "SELECT FROM " + Ticket.class.getName();
-			List<Ticket> tickets = (List<Ticket>) pm.newQuery(query).execute();
-			Ticket tick=pm.getObjectById(Ticket.class,id);
-			req.setAttribute("tickets", tickets);
-			req.setAttribute("ticket", tick);
-			req.getRequestDispatcher("/WEB-INF/Views/Ticket/edit.jsp").forward(req, resp);
+			
+			Ticket ticket = pm.getObjectById(Ticket.class,Long.parseLong(req.getParameter("id")));
+			req.setAttribute("ticket", ticket);
+			
+			Users user=pm.getObjectById(Users.class,ticket.getIdUser());
+			req.setAttribute("user", user);
+			
+			String query="SELECT FROM "+Product.class.getName();
+			List<Product> products=(List<Product>) pm.newQuery(query).execute();
+			req.setAttribute("products", products);
+			
+			pm.close();
+			
+			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Views/Ticket/edit.jsp");
+			rd.forward(req, resp);
 		}
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		//Recibe y se castea la fecha.
-		PersistenceManager pm=PMF.get().getPersistenceManager();
-		//Status del Ticket cambiar a Option jsp
-		boolean status=Boolean.parseBoolean(req.getParameter("status"));//Respecto a si esta pagado o no
-		String nameCustomer=req.getParameter("namecustomer");//Obtenerlo de Usuarios
-		String address=req.getParameter("address");
-		int customerDni=Integer.parseInt(req.getParameter("customerdni"));
-		String descriptionProduct=req.getParameter("descriptionproduct");
-		double unitPrice=Double.parseDouble(req.getParameter("unitprice"));
-		double mountProduct=Double.parseDouble(req.getParameter("mountproduct"));
-		double IGV=Double.parseDouble(req.getParameter("IGV"));
-		double total=unitPrice*mountProduct*(1+IGV);
-		Long id=Long.parseLong(req.getParameter("id"));
 		
-		
-		try {
-			Ticket ticket=pm.getObjectById(Ticket.class,id);
-			ticket.setAddress(address);
-			ticket.setCustomerdni(customerDni);
-			ticket.setDescriptionProduct(descriptionProduct);
-			ticket.setIGV(IGV);
-			ticket.setMountProduct(mountProduct);
-			ticket.setNameCustomer(nameCustomer);
-			ticket.setStatus(status);
-			ticket.setTotal(total);
-			pm.close();
-		} catch (Exception e) {
-			System.out.println(e.toString());
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Ticket ticket = pm.getObjectById(Ticket.class, Long.parseLong(req.getParameter("id")));
+		if(req.getParameter("operacion").equalsIgnoreCase("anadir")){//Esto va en el jsp
+			Long idProduct=Long.parseLong(req.getParameter("idproduct"));
+			int cantidad=Integer.parseInt(req.getParameter("cantidad"));
+			ticket.addProduct(idProduct, cantidad);
+		}else if(req.getParameter("operacion").equalsIgnoreCase("eliminar")){
+			Long idProduct=Long.parseLong(req.getParameter("idproduct"));//Esto tambien va en el jsp
+			ticket.removeProduct(idProduct);
 		}
-			resp.sendRedirect("/tickets");
-		}
+		pm.close();
+		resp.sendRedirect("/tickets/view?id=" + req.getParameter("id"));// Enviar														// ViewController
 	}
+}

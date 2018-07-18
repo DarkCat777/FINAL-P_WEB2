@@ -43,25 +43,11 @@ public class UsersControllerAdd extends HttpServlet {
 		
 		String name = request.getParameter("name");
 		String city = request.getParameter("city");
-		String almacenaFecha = request.getParameter("birth");
-		String año = almacenaFecha.substring(0, 4);
-		String mes = almacenaFecha.substring(5, 7);
-		String dia = almacenaFecha.substring(8);
-		String f = dia + "/" + mes + "/" + año;
-		DateFormat df = DateFormat.getDateInstance(2);
-		Date closeDate=null;
 		String cellphone = request.getParameter("cellphone");
 		String email = request.getParameter("email");
 		boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
-		Long idRole = Long.parseLong(request.getParameter("idroles")); // idRoles
-																		// JSP
-																	// cambiar
-		try {
-			closeDate = df.parse(f);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		Users user = new Users(name, city, closeDate, cellphone, email, gender, idRole);
+		Long idRole = Long.parseLong(request.getParameter("idroles")); 
+		Users user = new Users(name, city,cellphone, email, gender, idRole);
 		pm.makePersistent(user);
 		pm.close();
 		response.sendRedirect("/user");

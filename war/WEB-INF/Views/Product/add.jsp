@@ -78,12 +78,14 @@ function comprobar(){
 
 				<p>Ingrese el descuento</p>
 				<input type="text" id="descuento" name="descuento"
-					placeholder="Ingrese el descuento"> <label for="descuento">
-					Ingrese el descuento</label>
+					placeholder="Ingrese el descuento">
 
 				<p>Ingrese el precio</p>
 				<input type="text" id="price" name="price"
 					placeholder="Ingrese el precio">
+					
+					<p>Ingrese el stock</p>
+				<input type="text" id="stock" name="stock" placeholder="Ingrese el stock"> 
 
 				<p>Seleccione su estado</p>
 				<select name="status">
@@ -91,9 +93,7 @@ function comprobar(){
 					<option value="false">Desactivado</option>
 				</select>
 
-				<p>Seleccione el stock</p>
-				<input type="text" id="stock" name="stock"> <input
-					type="submit" id="submit" value="Añadir">
+				<input type="submit" id="submit" value="Añadir">
 			</form>
 		</div>
 		<a href="/product"><img src="/lista.png" width="50" height="50"></a>

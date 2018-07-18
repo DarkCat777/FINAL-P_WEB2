@@ -37,10 +37,6 @@
 				<td><%=user.getCity()%></td>
 			</tr>
 			<tr>
-				<th>Fecha de Nacimiento</th>
-				<td><%=sdf.format(user.getBirth()) %></td>
-			</tr>
-			<tr>
 				<th>Celular</th>
 				<td><%=user.getCellphone()%></td>
 			</tr>
@@ -92,7 +88,7 @@
 					<td><a href="/user/edit?id=<%=user.getId() %>"><img src="/img/edit.png"></a></td>
 					<th>
 						<div class="borrar">
-							<form action="/user/delete" method="post">
+							<form action="/user/delete" method="get">
 							<input type="hidden" value="<%=user.getId()%>" name="id"> 
 							<input type="image" src="/img/elimina.png" heigth="50px">
 						</form>
